@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.location }} - {{ post.date }}</title>
+    <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+</head>
+<body>
+	<header>
+		<h1>Блогикум</h1>
+		<nav>
+			<a href="{% url 'index' %}">Лента записей</a>
+			<a href="#">О проекте</a>
+			<a href="#">Наши правила</a>
+		</nav>
+	</header>
+
+	<main class="container post">
+		<ul>
+			<li>Место: {{ post.location }}</li>
+			<li>Дата: {{ post.date }}</li>
+			<li>Категория: <a href="{% url 'category_posts' post.category %}">{{ post.category }}</a></li>
+		</ul>
+		<p class="text">{{ post.text }}</p>
+	</main>
+
+	<footer>
+		<hr>
+		<p>&copy;Блогикум</p>
+	</footer>
+</body>
+</html>

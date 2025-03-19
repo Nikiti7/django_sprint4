@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Категория: {{ category_slug }}</title>
+    <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+</head>
+<body>
+	<header>
+		<h1>Блогикум</h1>
+		<nav>
+			<a href="{% url 'index' %}">Лента записей</a>
+			<a href="#">О проекте</a>
+			<a href="#">Наши правила</a>
+		</nav>
+	</header>
+
+	<main class="container post">
+    <h2 class="category">Публикации в категории - {{ category_slug }}</h2>
+	</main>
+	<footer>
+		<hr>
+		<p>&copy;Блогикум</p>
+	</footer>
+</body>
+</html>
