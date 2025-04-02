@@ -8,7 +8,7 @@
                 <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
                 <p><strong>Дата:</strong> {{ post.pub_date }}</p>
                 <p>Слаг категории: {{ category.slug }}</p>
-                <p>Местоположение: {{ location.name }}</p>
+                <p>Местоположение: {{ post.location.name }}</p>
                 <p>{{ post.text }}</p>
             </article>
         {% endfor %}

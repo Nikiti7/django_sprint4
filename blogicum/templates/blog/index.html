@@ -9,7 +9,7 @@
             <p><strong>Дата:</strong> {{ post.pub_date }}</p>
             <p>{{ post.text }}</p>
             <p>Слаг категории: {{ category.slug }}</p>
-            <p>Местоположение: {{ location.name }}</p>
+            <p>Местоположение: {{ post.location.name }}</p>
             <p>
                 Категория: 
                 {% if post.category %}
