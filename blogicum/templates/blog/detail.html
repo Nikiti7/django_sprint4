@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p><strong>Дата:</strong> {{ post.pub_date }}</p>
+    <p>
+        Категория: 
+        {% if post.category %}
+            <a href="{% url 'category_posts' post.category.slug %}">{{ post.category.title }}</a>
+        {% else %}
+            Без категории
+        {% endif %}
+    </p>
+    <p>{{ post.text }}</p>
+{% endblock %}

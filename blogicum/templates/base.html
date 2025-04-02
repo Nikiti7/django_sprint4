@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Блог{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+</head>
+<body>
+
+    <header>
+				<h1>Блогикум</h1>
+        <nav>
+          <a href="{% url 'index' %}">Главная</a>
+          <a href="{% url 'pages:about' %}">О проекте</a>
+          <a href="{% url 'pages:rules' %}">Правила</a>
+        </nav>
+    </header>
+
+    <main class="container post">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+				<hr>
+        <p>&copy;Блогикум</p>
+    </footer>
+
+</body>
+</html>
