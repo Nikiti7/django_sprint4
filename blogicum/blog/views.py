@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from .models import Post, Category
 
+
 def index(request):
     """
     Главная страница:
@@ -18,6 +19,7 @@ def index(request):
     ).order_by('-pub_date')[:5]
     return render(request, 'blog/index.html', {'posts': posts})
 
+
 def category_posts(request, category_slug):
     """
     Страница категории:
@@ -27,14 +29,19 @@ def category_posts(request, category_slug):
       - дата публикации не позже текущего времени.
     """
     # Получаем категорию по slug, проверяя, что она опубликована
-    category = get_object_or_404(Category, slug=category_slug, is_published=True)
+    category = get_object_or_404(
+        Category,
+        slug=category_slug,
+        is_published=True)
     now = timezone.now()
     posts = Post.objects.filter(
         category=category,
         pub_date__lte=now,
         is_published=True
     ).order_by('-pub_date')
-    return render(request, 'blog/category.html', {'category': category, 'posts': posts})
+    return render(request, 'blog/category.html',
+                  {'category': category, 'posts': posts})
+
 
 def post_detail(request, post_id):
     """
