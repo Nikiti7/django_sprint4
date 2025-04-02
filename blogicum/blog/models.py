@@ -9,8 +9,10 @@ User = get_user_model()
 class Category(models.Model):
     title = models.CharField('Заголовок', max_length=256)
     description = models.TextField('Описание')
-    slug = models.SlugField('Идентификатор', unique=True, blank=False, help_text=(
-        'Идентификатор страницы для URL; разрешены символы латиницы, цифры, дефис и подчёркивание.'))
+    slug = models.SlugField(
+        'Идентификатор', unique=True, blank=False, help_text=(
+            'Идентификатор страницы для URL; разрешены символы латиницы, '
+            'цифры, дефис и подчёркивание.'))
     is_published = models.BooleanField(
         'Опубликовано',
         default=True,
@@ -44,8 +46,10 @@ class Location(models.Model):
 class Post(models.Model):
     title = models.CharField('Заголовок', max_length=256)
     text = models.TextField('Текст')
-    pub_date = models.DateTimeField('Дата и время публикации', help_text=(
-        'Если установить дату и время в будущем — можно делать отложенные публикации.'))
+    pub_date = models.DateTimeField(
+        'Дата и время публикации', help_text=(
+            'Если установить дату и время в будущем — '
+            'можно делать отложенные публикации.'))
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.ForeignKey(
         "blog.Location",
