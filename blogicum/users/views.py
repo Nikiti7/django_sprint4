@@ -45,6 +45,6 @@ def profile(request, username):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(
-        request, "user/profile.html", 
-                {"user_profile": author, "posts": page_obj}
+        request, "user/profile.html",
+        {"user_profile": author, "posts": page_obj}
     )
