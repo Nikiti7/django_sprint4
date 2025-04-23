@@ -17,8 +17,8 @@ def registration(request):
     else:
         form = UserCreationForm()
     return render(request,
-                "registration/registration_form.html",
-                {"form": form})
+                  "registration/registration_form.html",
+                  {"form": form})
 
 
 @login_required
