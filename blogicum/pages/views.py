@@ -27,4 +27,5 @@ class PageUpdateView(UpdateView):
     slug_url_kwarg = "slug"
 
     def get_success_url(self):
-        return reverse_lazy("pages:page_detail", kwargs={"slug": self.object.slug})
+        return reverse_lazy("pages:page_detail", 
+                            kwargs={"slug": self.object.slug})

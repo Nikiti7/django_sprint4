@@ -74,7 +74,10 @@ class Post(models.Model):
         verbose_name="Местоположение",
     )
     category = models.ForeignKey(
-        "blog.Category", on_delete=models.SET_NULL, null=True, verbose_name="Категория"
+        "blog.Category", 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        verbose_name="Категория"
     )
     is_published = models.BooleanField(
         "Опубликовано",
@@ -93,7 +96,9 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey("Post", on_delete=models.CASCADE, related_name="comments")
+    post = models.ForeignKey("Post", 
+                            on_delete=models.CASCADE, 
+                            related_name="comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

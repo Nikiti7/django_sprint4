@@ -38,7 +38,9 @@ def category_posts(request, category_slug):
       - дата публикации не позже текущего времени.
     """
     now = timezone.now()
-    category = get_object_or_404(Category, slug=category_slug, is_published=True)
+    category = get_object_or_404(Category, 
+                                slug=category_slug, 
+                                is_published=True)
     posts = Post.objects.filter(
         category=category, pub_date__lte=now, is_published=True
     ).order_by("-pub_date")
@@ -46,7 +48,9 @@ def category_posts(request, category_slug):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(
-        request, "blog/category.html", {"category": category, "posts": page_obj}
+        request, 
+        "blog/category.html", 
+        {"category": category, "posts": page_obj}
     )
 
 
@@ -100,7 +104,9 @@ def post_edit(request, post_id):
         form = PostForm(instance=post)
 
     return render(
-        request, "blog/create_post.html", {"form": form, "is_edit": True, "post": post}
+        request, 
+        "blog/create_post.html", 
+        {"form": form, "is_edit": True, "post": post}
     )
 
 
@@ -128,7 +134,9 @@ def edit_comment(request, post_id, comment_id):
             return redirect("blog:post_detail", post_id=post_id)
     else:
         form = CommentForm(instance=comment)
-    return render(request, "blog/edit_comment.html", {"form": form, "comment": comment})
+    return render(request, 
+                  "blog/edit_comment.html", 
+                  {"form": form, "comment": comment})
 
 
 @login_required
@@ -154,4 +162,6 @@ def delete_comment(request, post_id, comment_id):
         comment.delete()
         return redirect("blog:post_detail", post_id=post_id)
 
-    return render(request, "blog/comment_confirm_delete.html", {"comment": comment})
+    return render(request, 
+                  "blog/comment_confirm_delete.html", 
+                  {"comment": comment})
