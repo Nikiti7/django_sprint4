@@ -1,9 +1,6 @@
 from django.shortcuts import render
-from django.views.defaults import permission_denied, page_not_found, server_error
-from django.conf.urls import handler403, handler404, handler500
 from django.contrib import admin
 from django.urls import path, include
-
 from django.conf import settings
 from django.conf.urls.static import static
 
