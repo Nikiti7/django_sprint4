@@ -5,6 +5,9 @@
 		<hr>
     {% for post in posts %}
         <article>
+						{% if post.image %}
+							<img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 400px;">
+						{% endif %}
             <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
             <p><strong>Дата:</strong> {{ post.pub_date }}</p>
             <p>{{ post.text }}</p>
@@ -18,10 +21,29 @@
                     Без категории
                 {% endif %}
             </p>
+						{% if user == post.author %}
+						<form action="{% url 'blog:delete_post' post.id %}" method="post" style="display:inline;">
+							{% csrf_token %}
+							<button type="submit">Удалить</button>
+						</form>
+						{% endif %}
+						<p>{{ post.comments.count }} комментариев</p>
 						<hr>
         </article>
     {% empty %}
         <p>Публикаций пока нет.</p>
     {% endfor %}
+		<div class="pagination">
+			{% if page_obj.has_previous %}
+				<a href="?page=1">В начало</a>
+				<a href="?page={{ page_obj.previous_page_number }}">Назад</a>
+			{% endif %}
+		
+			<span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+			{% if page_obj.has_next %}
+				<a href="?page={{ page_obj.next_page_number }}">Вперёд</a>
+				<a href="?page={{ page_obj.paginator.num_pages }}">В конец</a>
+			{% endif %}
+		</div>
 {% endblock %}
 

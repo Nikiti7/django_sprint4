@@ -5,13 +5,32 @@
     {% if posts %}
         {% for post in posts %}
             <article>
+								{% if post.image %}
+									<img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 400px;">
+								{% endif %}
                 <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
                 <p><strong>Дата:</strong> {{ post.pub_date }}</p>
                 <p>Слаг категории: {{ category.slug }}</p>
                 <p>Местоположение: {{ post.location.name }}</p>
                 <p>{{ post.text }}</p>
+								<p>{{ post.comments.count }} комментариев</p>
             </article>
         {% endfor %}
+
+				<div class="pagination">
+					{% if page_obj.has_previous %}
+						<a href="?page=1">В начало</a>
+						<a href="?page={{ page_obj.previous_page_number }}">Назад</a>
+					{% endif %}
+				
+					<span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+				
+					{% if page_obj.has_next %}
+						<a href="?page={{ page_obj.next_page_number }}">Вперёд</a>
+						<a href="?page={{ page_obj.paginator.num_pages }}">В конец</a>
+					{% endif %}
+				</div>
+
     {% else %}
         <p>В этой категории пока нет публикаций.</p>
     {% endif %}

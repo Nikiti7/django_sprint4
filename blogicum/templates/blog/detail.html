@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+		{% if post.image %}
+			<img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 400px;">
+		{% endif %}
     <h1>{{ post.title }}</h1>
     <p><strong>Дата:</strong> {{ post.pub_date }}</p>
     <p>
@@ -14,4 +17,16 @@
     <p>Слаг категории: {{ category.slug }}</p>
     <p>Местоположение: {{ post.location.name }}</p>
     <p>{{ post.text }}</p>
+		{% if request.user == post.author %}
+		<a href="{% url 'blog:post_edit' post.id %}">Редактировать</a>
+		<form method="post" action="{% url 'add_comment' post.id %}">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit">Добавить комментарий</button>
+		</form>	
+		{% for comment in comments %}
+			<p><strong>{{ comment.author.username }}</strong>: {{ comment.text }}</p>
+		{% endfor %}
+
+		{% endif %}
 {% endblock %}
