@@ -16,7 +16,7 @@
             <p>
                 Категория: 
                 {% if post.category %}
-                    <a href="{% url 'category_posts' post.category.slug %}">{{ post.category.title }}</a>
+                    <a href="{% url 'blog:category_posts' post.category.slug %}">{{ post.category.title }}</a>
                 {% else %}
                     Без категории
                 {% endif %}

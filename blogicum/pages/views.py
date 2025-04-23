@@ -1,12 +1,16 @@
 # pages/views.py
 from django.shortcuts import render
-from django.views.generic import DetailView, CreateView, UpdateView
+from django.views.generic import DetailView, CreateView, UpdateView, TemplateView
 from django.urls import reverse_lazy
 from .models import Page
 
 
 def index(request):
     return render(request, 'blog/index.html')
+
+
+class PageIndexView(TemplateView):
+    template_name = 'pages/index.html'
 
 
 class PageDetailView(DetailView):
