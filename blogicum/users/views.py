@@ -59,4 +59,5 @@ def profile(request, username):
 
 class CustomLoginView(LoginView):
     def get_success_url(self):
-        return reverse_lazy("users:profile", kwargs={"username": self.request.user.username})
+        return reverse_lazy("users:profile", 
+                            kwargs={"username": self.request.user.username})
