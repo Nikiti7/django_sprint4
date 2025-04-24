@@ -1,6 +1,7 @@
 # pages/views.py
 from django.shortcuts import render
-from django.views.generic import DetailView, CreateView, UpdateView, TemplateView
+from django.views.generic import CreateView, UpdateView, TemplateView
+from django.views.generic import DetailView
 from django.urls import reverse_lazy
 from .models import Page
 

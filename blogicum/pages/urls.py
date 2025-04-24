@@ -1,7 +1,6 @@
 from django.urls import path
-from . import views
-from .views import PageDetailView, PageCreateView, PageUpdateView, PageIndexView
-
+from .views import PageCreateView, PageUpdateView, PageIndexView
+from .views import PageDetailView
 app_name = "pages"
 
 urlpatterns = [
