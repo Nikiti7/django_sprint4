@@ -85,7 +85,7 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect("blog:profile", username=request.user.username)
+            return redirect("users:profile", username=request.user.username)
     else:
         form = PostForm()
     return render(request, "blog/post_form.html", {"form": form})
@@ -114,15 +114,18 @@ def post_edit(request, post_id):
 
 
 @login_required
-def add_comment(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+def add_comment(request, pk):
+    post = get_object_or_404(Post, pk=pk)
     form = CommentForm(request.POST)
     if form.is_valid():
         comment = form.save(commit=False)
         comment.author = request.user
         comment.post = post
         comment.save()
-    return redirect("blog:post_detail", post_id=post.id)
+        return redirect("blog:post_detail", pk=pk)
+    return render(request, 
+                  "blog/post_detail.html", 
+                  {"post": post, "form": form})
 
 
 @login_required
