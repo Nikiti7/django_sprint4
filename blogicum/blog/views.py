@@ -71,7 +71,7 @@ def post_detail(request, post_id):
         is_published=True,
         category__is_published=True,
     )
-    return render(request, "blog/detail.html", {"post": post})
+    return render(request, "blog/post_detail.html", {"post": post})
 
 
 @login_required
