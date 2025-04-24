@@ -20,7 +20,7 @@ class Category(models.Model):
     )
     is_published = models.BooleanField(
         "Опубликовано",
-        default=True,
+        default=False,
         help_text=("Снимите галочку, чтобы скрыть публикацию."),
     )
     created_at = models.DateTimeField("Добавлено", auto_now_add=True)
@@ -75,13 +75,13 @@ class Post(models.Model):
     )
     category = models.ForeignKey(
         "blog.Category",
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         null=True,
         verbose_name="Категория"
     )
     is_published = models.BooleanField(
         "Опубликовано",
-        default=True,
+        default=False,
         help_text=("Снимите галочку, чтобы скрыть публикацию."),
     )
     created_at = models.DateTimeField("Добавлено", auto_now_add=True)

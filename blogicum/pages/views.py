@@ -7,11 +7,11 @@ from .models import Page
 
 
 def index(request):
-    return render(request, 'blog/index.html')
+    return render(request, 'pages/index.html')
 
 
 class PageIndexView(TemplateView):
-    template_name = 'blog/index.html'
+    template_name = 'pages/index.html'
 
 
 class PageDetailView(DetailView):

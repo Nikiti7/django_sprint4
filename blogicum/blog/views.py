@@ -53,7 +53,7 @@ def category_posts(request, category_slug):
     )
 
 
-def post_detail(request, post_id):
+def post_detail(request, pk):
     """
     Страница отдельной публикации:
     Возвращается публикация по первичному ключу, если:
@@ -63,8 +63,8 @@ def post_detail(request, post_id):
     Иначе – 404.
     """
     post = get_object_or_404(
-        Post.objects.select_related("category", "author", "location"),
-        pk=post_id,
+        Post.objects.select_related("category"),
+        pk=pk,
         is_published=True,
         category__is_published=True,
         pub_date__lte=timezone.now(),
