@@ -69,7 +69,8 @@ def post_detail(request, pk):
         category__is_published=True,
         pub_date__lte=timezone.now(),
     )
-    return render(request, "blog/post_detail.html", {"post": post})
+    form = CommentForm()
+    return render(request, "blog/post_detail.html", {"post": post, 'form': form})
 
 
 @login_required
