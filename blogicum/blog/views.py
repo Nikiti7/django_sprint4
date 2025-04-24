@@ -123,6 +123,8 @@ def add_comment(request, pk):
         comment.post = post
         comment.save()
         return redirect("blog:post_detail", pk=pk)
+    else:
+        form = CommentForm()
     return render(request,
                   "blog/post_detail.html",
                   {"post": post, "form": form})

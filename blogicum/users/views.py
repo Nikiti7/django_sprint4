@@ -3,7 +3,9 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 
 from blog.models import Post
 
@@ -14,8 +16,9 @@ def registration(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect("login")
+            user = form.save()
+            login(request, user)  # <-- автоматически логиним пользователя
+            return redirect("users:profile", username=user.username)
     else:
         form = UserCreationForm()
     return render(request,
@@ -52,3 +55,8 @@ def profile(request, username):
         request, "users/profile.html",
         {"user_profile": author, "posts": page_obj}
     )
+
+
+class CustomLoginView(LoginView):
+    def get_success_url(self):
+        return reverse_lazy("users:profile", kwargs={"username": self.request.user.username})

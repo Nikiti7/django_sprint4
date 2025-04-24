@@ -19,7 +19,7 @@
 <p>{{ post.text }}</p>
 {% if request.user == post.author %}
 <a href="{% url 'blog:post_edit' post.id %}">Редактировать</a>
-<form method="post" action="{% url 'add_comment' post.id %}">
+<form method="post" action="{% url 'blog:add_comment' post.id %}">
 {% csrf_token %}
 {{ form.as_p }}
 <button type="submit">Добавить комментарий</button>
