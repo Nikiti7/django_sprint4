@@ -70,7 +70,10 @@ def post_detail(request, pk):
         pub_date__lte=timezone.now(),
     )
     form = CommentForm()
-    return render(request, "blog/post_detail.html", {"post": post, 'form': form})
+    return render(request, 
+                  "blog/post_detail.html", 
+                  {"post": post, 'form': form}
+    )
 
 
 @login_required
