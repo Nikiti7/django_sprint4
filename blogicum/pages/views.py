@@ -11,7 +11,7 @@ def index(request):
 
 
 class PageIndexView(TemplateView):
-    template_name = 'pages/index.html'
+    template_name = 'blog/index.html'
 
 
 class PageDetailView(DetailView):

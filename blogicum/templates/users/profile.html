@@ -4,8 +4,7 @@
 {% block title %}Профиль пользователя {{ author.username }}{% endblock %}
 
 {% block content %}
-  <h1>Профиль пользователя: {{ author.get_full_name|default:author.username }}</h1>
-  <p>Логин: {{ author.username }}</p>
+	<h1>{{ author.username }}</h1>
   <p>Email: {{ author.email }}</p>
 
   {% if request.user == author %}

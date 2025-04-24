@@ -37,12 +37,11 @@ def category_posts(request, category_slug):
       - is_published=True,
       - дата публикации не позже текущего времени.
     """
-    now = timezone.now()
     category = get_object_or_404(Category,
                                  slug=category_slug,
                                  is_published=True)
     posts = Post.objects.filter(
-        category=category, pub_date__lte=now, is_published=True
+        category=category, pub_date__lte=timezone.now(), is_published=True
     ).order_by("-pub_date")
     paginator = Paginator(posts, 10)
     page_number = request.GET.get("page")
@@ -63,13 +62,12 @@ def post_detail(request, post_id):
       - у связанной категории is_published=True.
     Иначе – 404.
     """
-    now = timezone.now()
     post = get_object_or_404(
-        Post,
+        Post.objects.select_related("category", "author", "location"),
         pk=post_id,
-        pub_date__lte=now,
         is_published=True,
         category__is_published=True,
+        pub_date__lte=timezone.now(),
     )
     return render(request, "blog/post_detail.html", {"post": post})
 
@@ -85,7 +83,7 @@ def post_create(request):
             return redirect("blog:profile", username=request.user.username)
     else:
         form = PostForm()
-    return render(request, "blog/create_post.html", {"form": form})
+    return render(request, "blog/post_form.html", {"form": form})
 
 
 @login_required
