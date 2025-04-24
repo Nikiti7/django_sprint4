@@ -8,7 +8,7 @@
 						{% if post.image %}
 							<img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 400px;">
 						{% endif %}
-            <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+            <h3><a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></h3>
             <p><strong>Дата:</strong> {{ post.pub_date }}</p>
             <p>{{ post.text }}</p>
             <p>Слаг категории: {{ category.slug }}</p>
