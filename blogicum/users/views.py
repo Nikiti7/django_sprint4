@@ -9,6 +9,7 @@ from blog.models import Post
 
 User = get_user_model()
 
+
 def registration(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
