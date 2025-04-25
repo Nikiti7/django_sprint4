@@ -96,8 +96,8 @@ def post_create(request):
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk, author=request.user)
 
-    if post.author != request.user:
-        return redirect("blog:post_detail", post_id=post.pk)
+    if request.user != post.author:
+        return redirect("blog:post_detail", pk=pk)
 
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES, instance=post)

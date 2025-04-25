@@ -41,20 +41,17 @@ def edit_profile(request, username):
 
 
 def profile(request, username):
-    author = get_object_or_404(User, username=username)
-    posts = Post.objects.filter(author=author).order_by("-pub_date")
-    if request.user != author:
-        now = timezone.now()
-        posts = posts.filter(
-            pub_date__lte=now, is_published=True, category__is_published=True
-        )
+    user_profile = get_object_or_404(User, username=username)
+    posts = Post.objects.filter(
+        author=user_profile, is_published=True, pub_date__lte=timezone.now())
     paginator = Paginator(posts, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    return render(
-        request, "users/profile.html",
-        {"user_profile": author, "posts": page_obj}
-    )
+    return render(request, "users/profile.html", {
+        "user_profile": user_profile,
+        "posts": page_obj,
+        "page_obj": page_obj
+    })
 
 
 class CustomLoginView(LoginView):

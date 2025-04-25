@@ -4,7 +4,7 @@
 {% block title %}Профиль пользователя {{ user_profile.username }}{% endblock %}
 
 {% block content %}
-	<p>Имя пользователя: <strong>{{ user_profile.username }}</strong></p>
+	<h1>Профиль пользователя: {{ user_profile.username }}</h1>
 
   {% if request.user == user_profile %}
     <p><a href="{% url 'users:edit_profile' username=user_profile.username %}">Редактировать профиль</a></p>
