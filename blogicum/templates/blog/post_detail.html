@@ -14,39 +14,12 @@
 			Без категории
 	{% endif %}
 </p>
-<p>Слаг категории: {{ category.slug }}</p>
 <p>Местоположение: {{ post.location.name }}</p>
 <p>{{ post.text }}</p>
 {% if request.user == post.author %}
-<a href="{% url 'blog:post_edit' post.id %}">Редактировать</a>
-<form method="post" action="{% url 'blog:add_comment' post.id %}">
-{% csrf_token %}
-{{ form.as_p }}
-<button type="submit">Добавить комментарий</button>
-</form>	
-{% for comment in comments %}
-<p><strong>{{ comment.author.username }}</strong>: {{ comment.text }}</p>
-{% endfor %}
-
+  <a href="{% url 'blog:post_edit' post.id %}">Редактировать</a>
+  <a href="{% url 'blog:delete_post' post.id %}">Удалить</a>
 {% endif %}
-<h2>Комментарии ({{ post.comments.count }})</h2>
-
-{% for comment in post.comments.all %}
-  <div>
-    <p><strong>{{ comment.author }}</strong>: {{ comment.text }}</p>
-    <p><small>{{ comment.created_at }}</small></p>
-    {% if comment.author == user %}
-      <a href="{% url 'blog:edit_comment' post.id comment.id %}">Редактировать</a>
-			<form action="{% url 'blog:delete_comment' comment.post.id comment.id %}" method="post" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit">Удалить</button>
-      </form>
-    {% endif %}
-  </div>
-{% empty %}
-  <p>Комментариев пока нет.</p>
-{% endfor %}
-
 {% if user.is_authenticated %}
   <form method="post" action="{% url 'blog:add_comment' post.id %}">
     {% csrf_token %}
@@ -57,4 +30,22 @@
 {% else %}
   <p>Только зарегистрированные пользователи могут оставлять комментарии.</p>
 {% endif %}
+
+<h2>Комментарии ({{ comments.count }})</h2>
+
+{% for comment in comments %}
+  <div>
+    <p><strong>{{ comment.author }}</strong>: {{ comment.text }}</p>
+    <p><small>{{ comment.created_at }}</small></p>
+    {% if comment.author == request.user %}
+      <a href="{% url 'blog:edit_comment' post.id comment.id %}">Редактировать</a>
+      <form action="{% url 'blog:delete_comment' post.id comment.id %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Удалить</button>
+      </form>
+    {% endif %}
+  </div>
+{% empty %}
+  <p>Комментариев пока нет.</p>
+{% endfor %}
 {% endblock %}

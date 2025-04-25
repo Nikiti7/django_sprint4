@@ -11,7 +11,6 @@
             <h3><a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></h3>
             <p><strong>Дата:</strong> {{ post.pub_date }}</p>
             <p>{{ post.text }}</p>
-            <p>Слаг категории: {{ category.slug }}</p>
             <p>Местоположение: {{ post.location.name }}</p>
             <p>
                 Категория: 
@@ -27,7 +26,7 @@
 							<button type="submit">Удалить</button>
 						</form>
 						{% endif %}
-						<p>{{ post.comments.count }} комментариев</p>
+						<p>({{ post.comments.count }}) комментариев</p>
 						<hr>
         </article>
     {% empty %}
